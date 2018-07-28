@@ -31,23 +31,23 @@ app.get('/img/ftax.png', (req, res) => {
 io.on('connection', (socket) => {
 	socket.on('start', (fechaHora) => {
 		io.emit('start', {response : 'ok', fechaHora : fechaHora});
-		fs.appendFile('./logs.txt', '[' + fechaHora + '] Inicio de conexión con el servidor');
+		fs.appendFile('./logs/logs.txt', '[' + fechaHora + '] Inicio de conexión con el servidor\n');
 		//io.broadcast.emit('start', {response : 'ok', fechaHora : fechaHora});
 	});
 
 	socket.on('sinInternet', (fechaHora) => {
 		io.emit('sinInternet', {response : 'ok', fechaHora : fechaHora});
-		fs.appendFile('./logs.txt', '[' + fechaHora + '] Celular sin conexión');
+		fs.appendFile('./logs/logs.txt', '[' + fechaHora + '] Celular sin conexión\n');
 	});
 
 	socket.on('reconexion', (fechaHora) => {
 		io.emit('reconexion', {response : 'ok', fechaHora : fechaHora});
-		fs.appendFile('./logs.txt', '[' + fechaHora + '] El celular se ha reconectado');
+		fs.appendFile('./logs/logs.txt', '[' + fechaHora + '] El celular se ha reconectado\n');
 	});
 
 	socket.on('stop', (fechaHora) => {
 		io.emit('stop', {response : 'ok', fechaHora : fechaHora});
-		fs.appendFile('./logs.txt', '[' + fechaHora + '] Fin de la prueba\n');
+		fs.appendFile('./logs/logs.txt', '[' + fechaHora + '] Fin de la prueba\n\n');
 		//io.broadcast.emit('stop', {response : 'ok', fechaHora : fechaHora});
 	});
 });
