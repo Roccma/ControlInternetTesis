@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Control de Internet</title>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+			font-family: Arial;
+		}
+		body, html{
+			background: url('/img/ftax.png'); 
+		}
+
+		#textarea{
+			resize: none;
+			width: 74%;
+			height: 82%;
+			border-radius: 15px;
+			margin: 0 auto;
+			position: absolute;
+			border: 12px solid #F5F5F5;
+			left: 13%;
+			top: 1%;
+			overflow-y: auto;
+			font-size: 28px;
+			padding: 10px 15px;
+			background: white;
+		}
+
+		.inicio{
+			color:orange;
+		}
+
+		.sinInternet{
+			color:red;
+		}
+
+		.reconexion{
+			color:green;
+		}
+
+		span{
+			display: block;
+			margin-bottom: 5px;
+		}
+
+		#btnExportar{
+			background: red;
+			color: white;
+			border: 1px solid red;
+			border-radius: 5px;
+			padding: 10px 10px;
+			font-size: 24px;
+			width: 20%;
+			left: 40%;
+			bottom: 3%;
+			position: absolute;
+			cursor: pointer;
+			outline: 0;
+			text-decoration: none;
+			text-align: center;
+		}
+
+		#btnExportar:hover{
+			background: #F1948A;
+			border: 1px solid #F1948A;
+		}
+
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+</head>
+<body>
+	<div id = "textarea">
+	</div>
+	<a target = "_blank" href = "logs.txt" id = "btnExportar">Ver Logs</a>
+	<script src = "/socket.io/socket.io.js"></script>
+	<script type="text/javascript">
+		let socket = io();
+
+		let textarea = document.getElementById('textarea');
+		socket.on('start', function(data){
+			if(data['response'] == "ok"){
+				let textarea = document.getElementById('textarea');
+				textarea.innerHTML = "<span class = 'inicio'>[" + data['fechaHora'] + "] Inicio de conexión con el servidor</span><br>"
+			}
+		});
+
+		socket.on('sinInternet', function(data){
+			if(data['response'] == "ok"){
+				let textarea = document.getElementById('textarea');
+				textarea.innerHTML = textarea.innerHTML + "<span class = 'sinInternet'>[" + data['fechaHora'] + "] Celular sin conexión</span><br>"
+			}
+		});
+
+		socket.on('reconexion', function(data){
+			if(data['response'] == "ok"){
+				let textarea = document.getElementById('textarea');
+				textarea.innerHTML = textarea.innerHTML + "<span class = 'reconexion'>[" + data['fechaHora'] + "] El celular se ha reconectado</span><br>"
+			}
+		});
+
+		socket.on('stop', function(data){
+			if(data['response'] == "ok"){
+				let textarea = document.getElementById('textarea');
+				textarea.innerHTML = textarea.innerHTML + "<span class = 'stop'>[" + data['fechaHora'] + "] Fin de la prueba</span><br>"
+			}
+		});
+
+		jQuery('#btnExportar').on('click', function(){
+			
+		})
+	</script>
+</body>
+</html>
