@@ -8,6 +8,7 @@ const port = process.env.PORT || 3000;
 const fs = require('fs');
 
 var imgDir = `${__dirname}/img`;
+var logsDir = `${__dirname}/logs`;
 
 app.use(express.static(__dirname + "/public"));
 
@@ -20,7 +21,7 @@ app.get('/index', (req, res) => {
 });
 
 app.get('/logs.txt', (req, res) => {
-	res.redirect('logs.txt');
+	res.sendFile(`${logsDir}/logs.txt`);
 });
 
 app.get('/img/ftax.png', (req, res) => {
