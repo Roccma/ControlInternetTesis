@@ -107,6 +107,13 @@
 			}
 		});
 
+		socket.on('destroy', function(data){
+			if(data['response'] == "ok"){
+				let textarea = document.getElementById('textarea');
+				textarea.innerHTML = textarea.innerHTML + "<span class = 'stop'>[" + data['fechaHora'] + "] Se ha cerrado la aplicación</span><br>"
+			}
+		});
+
 		jQuery('#btnExportar').on('click', function(){
 			
 		})

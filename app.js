@@ -50,6 +50,12 @@ io.on('connection', (socket) => {
 		fs.appendFile('./logs/logs.txt', '[' + fechaHora + '] Fin de la prueba\n\n');
 		//io.broadcast.emit('stop', {response : 'ok', fechaHora : fechaHora});
 	});
+
+	socket.on('destroy', (fechaHora) => {
+		io.emit('destroy', {response : 'ok', fechaHora : fechaHora});
+		fs.appendFile('./logs/logs.txt', '[' + fechaHora + '] Se ha cerrado la aplicación\n\n');
+		//io.broadcast.emit('stop', {response : 'ok', fechaHora : fechaHora});
+	});
 });
 
 http.listen(port, () => {
